@@ -81,7 +81,8 @@ impl DriverInfo {
     }
 
     pub fn vulnerable(&self) -> bool {
-        self.imports.iter().map(|(_, func)| func).any(|func| func.to_lowercase() == "zwmapviewofsection")
+        let imp = self.imports.iter().map(|(_, func)| func.as_str()).collect::<Vec<_>>();
+        imp.contains(&"ZwMapViewOfSection") && imp.contains(&"IoCreateDevice")
     }
 }
 
